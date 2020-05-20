@@ -3,14 +3,13 @@ package model
 import (
 	"fmt"
 	"sbdb-teacher/infrastructure"
-	"time"
 )
 
 type Teacher struct {
-	Id       uint64    `json:"id"`
-	Name     string    `json:"name"`
-	Birthday time.Time `json:"birthday"`
-	Sex      string    `json:"sex"`
+	Id       uint64 `json:"id"`
+	Name     string `json:"name"`
+	Birthday string `json:"birthday"`
+	Sex      string `json:"sex"`
 }
 
 func Get(id uint64) (Teacher, error) {
