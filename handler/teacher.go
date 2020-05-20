@@ -12,14 +12,14 @@ import (
 
 func getHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
-	collegeId := r.URL.Query().Get("id")
-	userId, _ := strconv.ParseUint(collegeId, 10, 64)
-	college, err := model.Get(userId)
+	teacherId := r.URL.Query().Get("id")
+	userId, _ := strconv.ParseUint(teacherId, 10, 64)
+	teacher, err := model.Get(userId)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		return
 	}
-	resp, _ := json.Marshal(college)
+	resp, _ := json.Marshal(teacher)
 	_, _ = w.Write(resp)
 }
 
