@@ -35,6 +35,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 	id, err := service.SignIn(toCreate.Username, toCreate.Password)
 	if err != nil {
 		log.Println("Cannot create user!")
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
