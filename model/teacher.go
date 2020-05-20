@@ -1,6 +1,7 @@
 package model
 
 import (
+	"fmt"
 	"sbdb-teacher/infrastructure"
 	"time"
 )
@@ -26,6 +27,7 @@ func Get(id uint64) (Teacher, error) {
 }
 
 func Create(teacher Teacher) (Teacher, error) {
+	fmt.Println(teacher)
 	_, err := infrastructure.DB.Exec(`
 	INSERT INTO teacher(user_id, name, birthday, sex) 
 	VALUES ($1,$2,$3,$4);
