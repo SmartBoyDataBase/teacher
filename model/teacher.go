@@ -26,19 +26,18 @@ func Get(id uint64) (Teacher, error) {
 }
 
 func Create(teacher Teacher) (Teacher, error) {
-	_, _ = infrastructure.DB.Exec(`
+	_, err := infrastructure.DB.Exec(`
 	INSERT INTO teacher(user_id, name, birthday, sex) 
 	VALUES ($1,$2,$3,$4);
 	`, teacher.Id, teacher.Name,
 		teacher.Birthday, teacher.Sex)
-	_, err := infrastructure.DB.Exec(`
-	INSERT INTO user_role(user_id, role_id) 
-	VALUES ($1, 3);
-	`, teacher.Id)
 	if err != nil {
 		return teacher, err
 	}
-	err = row.Scan(&teacher.Id)
+	_, err = infrastructure.DB.Exec(`
+	INSERT INTO user_role(user_id, role_id) 
+	VALUES ($1, 3);
+	`, teacher.Id)
 	return teacher, err
 }
 
