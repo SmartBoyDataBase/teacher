@@ -26,13 +26,14 @@ func Get(id uint64) (Teacher, error) {
 }
 
 func Create(teacher Teacher) (Teacher, error) {
-	row := infrastructure.DB.QueryRow(`
-	INSERT INTO teacher(name, birthday, sex) 
+	_, _ = infrastructure.DB.Exec(`
+	INSERT INTO teacher(user_id, name, birthday, sex) 
 	VALUES ($1,$2,$3,$4);
-	`, teacher.Id, teacher.Name, teacher.Birthday, teacher.Sex)
+	`, teacher.Id, teacher.Name,
+		teacher.Birthday, teacher.Sex)
 	_, err := infrastructure.DB.Exec(`
 	INSERT INTO user_role(user_id, role_id) 
-	VALUES ($1,3)
+	VALUES ($1, 3);
 	`, teacher.Id)
 	if err != nil {
 		return teacher, err
